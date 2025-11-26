@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-import.meta.env.VITE_BACKEND_URL || "http://localhost:4200";
+const socketUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:4200";
 const socket = io(socketUrl, {
     reconnectionDelayMax: 10000,
     transports: ['websocket', 'polling'],
