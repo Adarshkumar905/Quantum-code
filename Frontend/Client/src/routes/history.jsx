@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const Route = createFileRoute('/history')({
   component: HistoryPage,
@@ -34,7 +35,8 @@ function HistoryPage() {
     const fetchAllRooms = async () => {
       try {
         setLoading(true)
-        const response = await fetch('http://localhost:4200/Room/all/rooms')
+        const response = await fetch(`${BACKEND_URL}/Room/all/rooms`)
+
         if (response.ok) setRoomHistory(await response.json())
       } catch (error) {
         console.error('Error fetching rooms:', error)
@@ -63,7 +65,7 @@ function HistoryPage() {
       `Delete "${roomName}" permanently?`,
       async () => {
         try {
-          await fetch(`http://localhost:4200/Room/delete/${roomId}`, { method: 'DELETE' })
+          await fetch(`${BACKEND_URL}/Room/delete/${roomId}`, { method: 'DELETE' })
           refreshHistory()
         } catch {
           alert('Error deleting room. Please try again.')
@@ -81,7 +83,7 @@ function HistoryPage() {
       async () => {
         try {
           for (const roomId of selectedRooms) {
-            await fetch(`http://localhost:4200/Room/delete/${roomId}`, { method: 'DELETE' })
+           await fetch(`${BACKEND_URL}/Room/delete/${roomId}`, { method: 'DELETE' })
           }
           refreshHistory()
         } catch {
@@ -100,7 +102,7 @@ function HistoryPage() {
       async () => {
         try {
           for (const room of roomHistory) {
-            await fetch(`http://localhost:4200/Room/delete/${room.roomId}`, { method: 'DELETE' })
+            await fetch(`${BACKEND_URL}/Room/delete/${roomId}`, { method: 'DELETE' })
           }
           refreshHistory()
         } catch {
