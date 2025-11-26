@@ -9,6 +9,8 @@ import { FaRocket, FaBolt, FaPalette, FaComments, FaLock } from 'react-icons/fa'
 export const Route = createFileRoute("/")({
   component: IndexPage,
 });
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4200";
+
 
 function IndexPage() {
   const router = useRouter();
@@ -122,7 +124,7 @@ function IndexPage() {
   // to check if room exists
   const checkRoomExists = async (roomId) => {
     try {
-      const response = await fetch(`http://localhost:4200/Room/${roomId}/exists`);
+      const response = await fetch(`${BACKEND_URL}/Room/${roomId}/exists`);
       if (!response.ok) {
         return false;
       }
@@ -152,7 +154,7 @@ function IndexPage() {
     try {
       const userName = localStorage.getItem('username') || 'Anonymous';
       
-      const response = await fetch('http://localhost:4200/Room/history/save', {
+      const response = await fetch(`${BACKEND_URL}/Room/history/save`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -256,7 +258,7 @@ function IndexPage() {
     
     // Use backend to create room and get the room ID
     try {
-      const response = await fetch('http://localhost:4200/Room', {
+      const response = await fetch(`${BACKEND_URL}/Room`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
